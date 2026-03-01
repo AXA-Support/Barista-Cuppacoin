@@ -5,7 +5,12 @@
 // import { logoutUser } from '../../store/slices/authSlice';
 // import Notifications from './Notifications';
 
-// const Navbar = ({ toggleSidebar }) => {
+// const Navbar = ({ 
+//   toggleSidebar, 
+//   showNotifications, 
+//   setShowNotifications,
+//   onNotificationClick 
+// }) => {
 //   // Get employee from Redux - also watch the update version to detect changes
 //   const employee = useSelector((state) => state.auth.employee);
 //   const employeeUpdateVersion = useSelector((state) => state.auth.employeeUpdateVersion || 0);
@@ -28,8 +33,6 @@
 //     }
 //   }, [notificationCount, notificationsState]);
   
-//   // Refetch image when employee changes in Redux (e.g., after profile update)
-//   // Watch the update version to ensure we catch any employee update
 //   useEffect(() => {
 //     if (employee && employee.id) {
 //       // Force image refresh by updating the key whenever employee is updated
@@ -45,7 +48,6 @@
 //   const navigate = useNavigate();
 //   const dispatch = useDispatch();
 //   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-//   const [showNotifications, setShowNotifications] = useState(false); 
   
 //   const today = new Date();
 //   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -72,7 +74,6 @@
 //   const handleLogout = async () => {
 //     // Dispatch logout action which clears cookies and Redux state
 //     await dispatch(logoutUser());
-//     // Navigate to login page
 //     navigate('/');
 //   };
 
@@ -172,7 +173,6 @@
 //       font-size: 13px;
 //       font-weight: bold;
 //       border: 2px solid white;
-//       anim
 //     }
 //   `;
 
@@ -297,7 +297,8 @@
 //               className="p-2 rounded-lg border border-[#5B5ABC]/20 hover:bg-gray-50 transition-colors"
 //             >
 //               {isMobileMenuOpen ? (
-//                 <X className="size-5 text-[#5B5ABC]" />
+//                 // <X className="size-5 text-[#5B5ABC]" />
+//                 <Menu className="size-5 text-[#5B5ABC]" />
 //               ) : (
 //                 <Menu className="size-5 text-[#5B5ABC]" />
 //               )}
@@ -306,23 +307,18 @@
 //         </div>
 //       </nav>
 
-//       {/* Notifications Component */}
+//       {/* Notifications Component - Pass onNotificationClick prop */}
 //       <Notifications 
 //         isOpen={showNotifications} 
-//         onClose={() => setShowNotifications(false)} 
+//         onClose={() => setShowNotifications(false)}
+//         onNotificationClick={onNotificationClick}
+        
 //       />
 //     </>
 //   );
 // };
 
 // export default Navbar;
-
-
-
-
-/////////////////////////////////////
-
-
 
 import React, { useState, useEffect } from 'react';
 import { LogOut, Calendar, Menu, X, Bell } from 'lucide-react';
@@ -355,12 +351,9 @@ const Navbar = ({
   useEffect(() => {
     if (notificationCount > 0) {
       setNotificationsViewed(false);
-
     }
   }, [notificationCount, notificationsState]);
   
-  // Refetch image when employee changes in Redux (e.g., after profile update)
-  // Watch the update version to ensure we catch any employee update
   useEffect(() => {
     if (employee && employee.id) {
       // Force image refresh by updating the key whenever employee is updated
@@ -402,7 +395,6 @@ const Navbar = ({
   const handleLogout = async () => {
     // Dispatch logout action which clears cookies and Redux state
     await dispatch(logoutUser());
-    // Navigate to login page
     navigate('/');
   };
 
@@ -536,7 +528,8 @@ const Navbar = ({
         </div>
 
         <div className="flex items-center">
-          <div className="hidden sm:flex flex-row items-center space-x-4 md:space-x-6 lg:space-x-8">
+          {/* Desktop View - Hidden on mobile/tablet, visible on lg and up */}
+          <div className="hidden lg:flex flex-row items-center space-x-4 md:space-x-6 lg:space-x-8">
             {/* Profile and Date */}
             <div className="flex items-center">
               <div className="relative">
@@ -597,8 +590,8 @@ const Navbar = ({
             </button>
           </div>
 
-          {/* Mobile View */}
-          <div className="flex sm:hidden items-center space-x-3">
+          {/* Mobile/Tablet View - Visible on screens below lg breakpoint */}
+          <div className="flex lg:hidden items-center space-x-3">
             {/* Mobile Notifications Bell */}
             <div className="relative">
               <button
@@ -618,19 +611,16 @@ const Navbar = ({
               </button>
             </div>
 
+            {/* Burger button - Visible on all screens below lg (including medium screens) */}
             <button
               onClick={() => {
                 toggleSidebar();
                 setIsMobileMenuOpen(!isMobileMenuOpen);
               }}
               className="p-2 rounded-lg border border-[#5B5ABC]/20 hover:bg-gray-50 transition-colors"
+              aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? (
-                // <X className="size-5 text-[#5B5ABC]" />
-                <Menu className="size-5 text-[#5B5ABC]" />
-              ) : (
-                <Menu className="size-5 text-[#5B5ABC]" />
-              )}
+              <Menu className="size-5 text-[#5B5ABC]" />
             </button>
           </div>
         </div>
@@ -641,10 +631,10 @@ const Navbar = ({
         isOpen={showNotifications} 
         onClose={() => setShowNotifications(false)}
         onNotificationClick={onNotificationClick}
-        
       />
     </>
   );
 };
 
 export default Navbar;
+

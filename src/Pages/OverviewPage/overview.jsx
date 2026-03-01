@@ -1,3 +1,7 @@
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // import { useState, useEffect } from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
@@ -11,9 +15,13 @@
   
 //   const primaryColor = "#5b59bb";
 
-//   useEffect(()=>{
-//     console.log("Overview Data: ",overviewData)
-//   },[overviewData])
+//   // useEffect(()=>{
+//   //   console.log("Overview Data: ",overviewData)
+//   //   const employeeId = getEmployeeId();
+//   //   const data =  dispatch(fetchEmployeeOverview(employeeId));
+//   //   console.log("Employee Fetched Overview: ",fetchEmployeeOverview(employeeId))
+//   //   console.log("Data:",data)
+//   // },[overviewData])
   
 //   const [selectedTimeframe, setSelectedTimeframe] = useState("Week");
 //   const [animationKey, setAnimationKey] = useState(0);
@@ -115,12 +123,12 @@
 //         total = perPeriod.week?.total || summary.total_weekly_earnings || totals.weekly || 0;
 //         break;
 //       case "Month":
-//         wages = perPeriod.month?.wage || breakdown.monthly?.wages || totals.monthly || 0;
+//         wages = perPeriod.month?.wage || 0;
 //         incentives = perPeriod.month?.incentive || breakdown.monthly?.incentives || 0;
 //         total = perPeriod.month?.total || summary.total_monthly_earnings || totals.monthly || 0;
 //         break;
 //       case "Year":
-//         wages = perPeriod.year?.wage || breakdown.yearly?.wages || totals.yearly || 0;
+//         wages = perPeriod.year?.wage || 0;
 //         incentives = perPeriod.year?.incentive || breakdown.yearly?.incentives || 0;
 //         total = perPeriod.year?.total || summary.total_yearly_earnings || totals.yearly || 0;
 //         break;
@@ -409,9 +417,7 @@
 
 // export default OverviewPage;
 
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -829,3 +835,4 @@ const OverviewPage = () => {
 };
 
 export default OverviewPage;
+
